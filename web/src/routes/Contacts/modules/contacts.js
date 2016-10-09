@@ -6,10 +6,18 @@ import { username, password } from '../../../LoginDetails'
 export const REQUEST_CONTACT = 'REQUEST_CONTACT'
 export const FETCH_CONTACT = 'FETCH_CONTACT'
 export const RECIEVE_CONTACT = 'RECIEVE_CONTACT'
+export const SELECT_CONTACT = 'SELECT_CONTACT'
 
 export function requestContacts (value) {
   return {
     type    : REQUEST_CONTACT
+  }
+}
+
+export function selectContact (id) {
+  return {
+    type: SELECT_CONTACT,
+    payload: id
   }
 }
 
@@ -39,7 +47,8 @@ export function recieveContacts (value) {
 export const actions = {
   requestContacts,
   fetchContacts,
-  recieveContacts
+  recieveContacts,
+  selectContact
 }
 
 // ------------------------------------
@@ -51,6 +60,9 @@ const ACTION_HANDLERS = {
   },
   [RECIEVE_CONTACT] : (state, action) => {
     return ({ ...state, fetching:false, contacts: action.payload })
+  },
+  [SELECT_CONTACT] : (state, action) => {
+    return ({ ...state, selectedContact: action.payload })
   }
   // [ADD_CONTACT] : (state, action) => {
   //   return Object.assign({}, state, { contacts: [...state.contacts, action.payload] })
@@ -62,7 +74,8 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   fetching: false,
-  contacts: []
+  contacts: [],
+  selectedContact: 0
 }
 export default function counterReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

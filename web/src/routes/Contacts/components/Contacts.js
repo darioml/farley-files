@@ -1,11 +1,25 @@
 import React from 'react'
 
 const ContactSmall = (props) => {
-  return <div>{`${props.contact.first_name} ${props.contact.last_name}`}</div>
+  return (<div onClick={() => props.onSelect(props.contact.id)}>
+    {`${props.contact.first_name} ${props.contact.last_name}`}
+  </div>)
 }
 
 const Contact = (props) => {
-  return <div>{JSON.stringify(props.contact)}<hr /></div>
+  // <div>{JSON.stringify(props.contact)}</div>
+
+  return <div>
+    <h2>{props.contact.first_name} <b>{props.contact.last_name}</b></h2>
+    <div>Birthday: {props.contact.birthday}</div>
+    <div>Phone Number: {props.contact.phone_number}</div>
+    <hr />
+    Child Contacts:
+    <div>{props.contact.child_contact.map(item =>
+      <div>{item}</div>
+    )}
+    </div>
+  </div>
 }
 
 export const Contacts = (props) => (
@@ -17,20 +31,19 @@ export const Contacts = (props) => (
     <hr />
     <div className='row'>
       <div className='col-xs-4'>{props.contacts.map(item =>
-        <ContactSmall key={item.id} contact={item} />
+        <ContactSmall key={item.id} contact={item} onSelect={props.selectContact} />
       )}
       </div>
       <div className='col-xs-8'>
-        <div>{props.contacts.map(item =>
-          <Contact key={item.id} contact={item} />
-        )}</div>
+        <Contact contact={props.selectedContact} />
       </div>
     </div>
   </div>
 )
 
 ContactSmall.propTypes = {
-  contact: React.PropTypes.object.isRequired
+  contact: React.PropTypes.object.isRequired,
+  onSelect: React.PropTypes.func.isRequired
 }
 
 Contact.propTypes = {
@@ -39,8 +52,10 @@ Contact.propTypes = {
 
 Contacts.propTypes = {
   contacts    : React.PropTypes.array.isRequired,
+  selectedContact: React.PropTypes.object.isRequired,
   increment   : React.PropTypes.func.isRequired,
-  fetch       : React.PropTypes.func.isRequired
+  fetch       : React.PropTypes.func.isRequired,
+  selectContact: React.PropTypes.func.isRequired
 }
 
 export default Contacts

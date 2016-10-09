@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { addContact, fetchContacts } from '../modules/contacts'
+import { addContact, fetchContacts, selectContact } from '../modules/contacts'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -13,12 +13,16 @@ import Contacts from '../components/Contacts'
     implementing our wrapper around increment; the component doesn't care   */
 const mapDispatchToProps = {
   increment : () => addContact(Math.random()),
-  fetch : () => fetchContacts()
+  fetch : () => fetchContacts(),
+  selectContact: (id) => selectContact(id)
 }
 
 const mapStateToProps = (state) => {
+  const contacts = state.contacts.contacts.results || []
+
   return {
-    contacts: state.contacts.contacts.results || []
+    contacts,
+    selectedContact: contacts.find(item => item.id === state.contacts.selectedContact)
   }
 }
 
