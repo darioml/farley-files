@@ -3,20 +3,9 @@ import { username, password } from '../../../LoginDetails'
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const ADD_CONTACT = 'ADD_CONTACT'
 export const REQUEST_CONTACT = 'REQUEST_CONTACT'
 export const FETCH_CONTACT = 'FETCH_CONTACT'
 export const RECIEVE_CONTACT = 'RECIEVE_CONTACT'
-
-// ------------------------------------
-// Actions
-// ------------------------------------
-export function addContact (value) {
-  return {
-    type    : ADD_CONTACT,
-    payload : value
-  }
-}
 
 export function requestContacts (value) {
   return {
@@ -48,7 +37,6 @@ export function recieveContacts (value) {
 }
 
 export const actions = {
-  addContact,
   requestContacts,
   fetchContacts,
   recieveContacts
@@ -63,10 +51,10 @@ const ACTION_HANDLERS = {
   },
   [RECIEVE_CONTACT] : (state, action) => {
     return ({ ...state, fetching:false, contacts: action.payload })
-  },
-  [ADD_CONTACT] : (state, action) => {
-    return Object.assign({}, state, { contacts: [...state.contacts, action.payload] })
   }
+  // [ADD_CONTACT] : (state, action) => {
+  //   return Object.assign({}, state, { contacts: [...state.contacts, action.payload] })
+  // }
 }
 
 // ------------------------------------
