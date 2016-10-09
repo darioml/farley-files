@@ -26,12 +26,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'quickstart',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
     'PAGE_SIZE': 10
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ORIGIN_WHITELIST = (
+#     'localhost:3000',
+# )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -41,6 +48,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'farleyapi.urls'
