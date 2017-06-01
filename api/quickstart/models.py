@@ -7,10 +7,10 @@ class Contact(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     birthday = models.DateField(null=True)
-    phone_number = models.CharField(max_length=100, null=True)
+    phone_number = models.CharField(max_length=100, blank=True)
     image_name = models.CharField(max_length=255, blank=True)
-    child_contact = models.ManyToManyField("Contact")
-    notes = models.TextField(null=True)
+    child_contact = models.ManyToManyField("Contact", blank=True)
+    notes = models.TextField(null=True, blank=True)
 
     def displayName(self):
         return u'%s, %s' % (self.last_name, self.first_name)

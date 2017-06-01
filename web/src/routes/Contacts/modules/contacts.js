@@ -24,7 +24,6 @@ export function selectContact (id) {
 export const fetchContacts = () => {
   return (dispatch) => {
     dispatch(requestContacts())
-
     fetch('http://localhost:8000/contacts/', {
       headers: {
         'Accept': 'application/json',
